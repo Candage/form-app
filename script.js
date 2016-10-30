@@ -27,6 +27,7 @@ var workers = [
 
 
 function addWorkerstoOffices(office) {
+
     return {
         id: office.id,
         name: office.name,
@@ -91,3 +92,23 @@ function showHighestSalary(office) {
 console.log(showHighestSalary(company["Gdańsk"]));
 console.log(showHighestSalary(company["Gliwice"]));
 console.log(showHighestSalary(company["Koszalin"]));
+
+
+var input = document.getElementById("input-text"),
+    addBtn = document.getElementById("add-btn"),
+    table = document.getElementById("table-of-workers");
+
+
+
+function displayWorkersTable() {
+    var companyWorkersList = '<table>';
+    for (var office in company) {
+        for (var i = 0, len = company[office].workers.length; i < len; i++) {
+            companyWorkersList += '<tr>' + company[office].workers[i] + '</tr>';
+        }
+    }
+    companyWorkersList += '</table>';
+    table.innerHTML = companyWorkersList;
+}
+
+console.log(displayWorkersTable());
