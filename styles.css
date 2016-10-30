@@ -7,6 +7,16 @@
     width: 100px;
 }
 
-#table-of-workers {
+#workers-container {
+}
+
+.table-of-workers tr th,
+.table-of-workers tr td  {
+    border: 1px solid #000;
+    padding: 10px 20px;
+}
+
+#workers-table-body {
 
 }
+

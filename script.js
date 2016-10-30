@@ -25,9 +25,10 @@ var workers = [
     { id: 15, name: "Magda",      type: "P", office: "KO", salary: 220 }
 ];
 
+var table = document.getElementById("workers-table-body");
+var company = {};
 
-function addWorkerstoOffices(office) {
-
+function mapWorkerstoOffices(office) {
     return {
         id: office.id,
         name: office.name,
@@ -38,16 +39,15 @@ function addWorkerstoOffices(office) {
     }
 }
 
-offices = offices.map(addWorkerstoOffices);
-console.log(offices);
-
-var company = {};
-
-for (var office of offices) {
-    company[office.name] = office;
+function addWorkerstoOffices() {
+    offices = offices.map(mapWorkerstoOffices);
 }
 
-console.log(company);
+function addOfficesToCompany() {
+    for (var office of offices) {
+        company[office.name] = office;
+    }
+}
 
 function calculateAverageWorkersSalary(office) {
     var salarySum = 0;
@@ -56,11 +56,6 @@ function calculateAverageWorkersSalary(office) {
     }
     return salarySum / len;
 }
-
-console.log(calculateAverageWorkersSalary(company["Gdańsk"]));
-console.log(calculateAverageWorkersSalary(company["Gliwice"]));
-console.log(calculateAverageWorkersSalary(company["Koszalin"]));
-
 
 function calculateAverageGlobalSalary() {
     var salarySum = 0;
@@ -74,41 +69,28 @@ function calculateAverageGlobalSalary() {
     return salarySum/workersLength;
 }
 
-console.log(calculateAverageGlobalSalary());
-
-//Napisz funkcję, która zwraca imię pracownika, który najwięcej zarabia dla wybranego przez nas biura wskazówka: array.sort()//
-
-
-function compareSalary(a, b) {
-    return b.salary - a.salary;
+function compareSalary(prev, next) {
+    return next.salary - prev.salary;
 }
 
 function showHighestSalary(office) {
-    // for (var i = 0, len = office.workers.length; i < len; i++) {
     var sortedWorkers = office.workers.sort(compareSalary);
     return "The best paid worker is " + sortedWorkers[0].name + " and his salary is " + sortedWorkers[0].salary;
 }
 
-console.log(showHighestSalary(company["Gdańsk"]));
-console.log(showHighestSalary(company["Gliwice"]));
-console.log(showHighestSalary(company["Koszalin"]));
-
-
-var input = document.getElementById("input-text"),
-    addBtn = document.getElementById("add-btn"),
-    table = document.getElementById("table-of-workers");
-
-
-
 function displayWorkersTable() {
-    var companyWorkersTable = '<table>';
+    var companyWorkersTable = "";
     for (var office in company) {
         for (var i = 0, len = company[office].workers.length; i < len; i++) {
-            companyWorkersTable += '<tr></td>' + company[office].workers[i].name + '</td></tr>';
+            companyWorkersTable += '<tr><td>' + company[office].workers[i].id + '</td><td>'
+                + company[office].workers[i].name + '</td><td>'
+                + company[office].workers[i].salary + '</td><td>'
+                + office + '</td></tr>';
         }
     }
-    companyWorkersTable += '</table>';
-    table.innerHTML = companyWorkersList;
+    table.innerHTML = companyWorkersTable; // zawsze nadpisuje całą zawartość węzła, do którego jest dodawany //
 }
 
+addWorkerstoOffices();
+addOfficesToCompany();
 displayWorkersTable();
