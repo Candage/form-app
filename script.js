@@ -101,14 +101,14 @@ var input = document.getElementById("input-text"),
 
 
 function displayWorkersTable() {
-    var companyWorkersList = '<table>';
+    var companyWorkersTable = '<table>';
     for (var office in company) {
         for (var i = 0, len = company[office].workers.length; i < len; i++) {
-            companyWorkersList += '<tr>' + company[office].workers[i] + '</tr>';
+            companyWorkersTable += '<tr></td>' + company[office].workers[i].name + '</td></tr>';
         }
     }
-    companyWorkersList += '</table>';
+    companyWorkersTable += '</table>';
     table.innerHTML = companyWorkersList;
 }
 
-console.log(displayWorkersTable());
+displayWorkersTable();
