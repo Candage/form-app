@@ -92,7 +92,8 @@ function displayWorkersTable() {
     table.innerHTML = companyWorkersTable; // zawsze nadpisuje całą zawartość węzła, do którego jest dodawany //
 }
 
-function Worker(name, salary, office) {
+function Worker(id, name, salary, office) {
+    this.id = id;
     this.name = name;
     this.salary = salary;
     this.office = office;
