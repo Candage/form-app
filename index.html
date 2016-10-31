@@ -3,37 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <title>Table of Workers</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 <div>
-    <label for = "input-name">Enter Worker's name:</label><input type="text" id="input-name"/>
-    <label for = "input-salary">Enter Worker's salary:</label><input type="number" id="input-salary"/>
-    <label for = "input-office">Enter Worker's office:</label><input type="text" id="input-office"/>
-    <button id="add-btn">ADD WORKER</button>
-    <p id="office-error"></p>
-    <label for = "input-search-worker">Enter the name of the worker that you search for:</label><input type="text" placeholder="Search" id="input-search-worker"/>
-    <button id="search-btn">SEARCH</button>
-    <p id="search-error"></p>
-</div>
-
-<div id="workers-container">
-    <table class="table-of-workers">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Salary</th>
-            <th>Office</th>
-        </tr>
-        </thead>
-        <tbody id="workers-table-body">
-
-        </tbody>
-    </table>
 
 </div>
 
-<script src="script.js"></script>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Workers management tool</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Dashboard</a></li>
+                <li><a href="#">Settings</a></li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Help</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
+                <li><a href="#">Reports</a></li>
+                <li><a href="#">Analytics</a></li>
+                <li><a href="#">Export</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h2 class="sub-header"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>List of workers</h2>
+        <div class="row">
+            <div class="col-xs-12">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addWorkerModal">Add worker</button>
+            </div>
+        </div>
+        <div class="modal fade" id="addWorkerModal" role="dialog">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Adding a New Worker</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label for="input-name" class="col-sm-2 control-label">Name</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="input-name" placeholder="Name">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="input-salary" class="col-sm-2 control-label">Salary</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="input-salary" placeholder="Salary">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="input-office" class="col-sm-2 control-label">Office</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="input-office" placeholder="Office">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button id="add-btn" class="btn btn-primary pull-right">ADD WORKER</button>
+                                    </div>
+                                </div>
+                            </form>
+                                <p id="office-error" class="alert alert-danger" role="alert" ></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-9">
+                <div class="form-group">
+                    <label for="input-search-worker" class="col-sm-2 control-label">Enter the name of the worker:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="input-search-worker" placeholder="Search...">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-3">
+                <button id="search-btn" class="btn btn-primary">SEARCH</button>
+            </div>
+        </div>
+        <p id="search-error"></p>
+        <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Salary</th>
+                        <th>Office</th>
+                    </tr>
+                    </thead>
+                    <tbody id="workers-table-body">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/jquery-2.2.0.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/script.js"></script>
 </body>
 </html>
