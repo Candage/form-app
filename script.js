@@ -96,7 +96,7 @@ function Worker(id, name, salary, office) {
     this.id = id;
     this.name = name;
     this.salary = salary;
-    this. office = office;
+    this.office = office;
 }
 
 function addWorker() {
@@ -105,6 +105,8 @@ function addWorker() {
     var salary = document.getElementById("input-salary").value;
     var office = document.getElementById("input-office").value;
     workers.push(new Worker(id, name, salary, office));
+    addWorkerstoOffices();
+    addOfficesToCompany();
     displayWorkersTable();
 }
 
