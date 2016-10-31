@@ -29,7 +29,7 @@ var table = document.getElementById("workers-table-body"),
     addBtn = document.getElementById("add-btn"),
     searchWorker = document.getElementById("input-search-worker"),
     searchBtn = document.getElementById("search-btn");
-    resultOfSearch = document.getElementById("result-of-search");
+    searchError = document.getElementById("search-error");
 var company = {};
 
 function mapWorkerstoOffices(office) {
@@ -122,25 +122,23 @@ function addWorker() {
     displayWorkersTable();
 }
 
-addBtn.addEventListener("click", addWorker);
-
-function filterWorkers(name) {
-    return function(worker) {
-        return worker.name.indexOf(name) !== -1;
+function searchWorkers() {
+    workers = workers.filter(function(worker) {
+        return worker.name.toLowerCase().indexOf(searchWorker.value.toLowerCase().trim()) !== -1;
+    });
+    if (workers.length === 0) {
+        document.getElementById("search-error").innerHTML = "No workers found!";
     }
+    addWorkerstoOffices();
+    addOfficesToCompany();
+    displayWorkersTable();
 }
 
-var filteredWorkers = workers.filter(filterWorkers);
-
-searchBtn.addEventListener("click", filteredWorkers);
-
-function displaySearchedWorkers() {
-    resultOfSearch.innerHTML = filteredWorkers;
-}
-
+addBtn.addEventListener("click", addWorker);
+searchBtn.addEventListener("click", searchWorkers);
 
 addWorkerstoOffices();
 addOfficesToCompany();
 displayWorkersTable();
-displaySearchedWorkers();
+
 

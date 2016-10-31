@@ -17,10 +17,12 @@
 
 }
 
-#office-error {
+#office-error,
+#search-error {
     background-color: red;
 }
 
 #search-btn {
 
 }
+
