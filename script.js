@@ -92,15 +92,14 @@ function displayWorkersTable() {
     table.innerHTML = companyWorkersTable; // zawsze nadpisuje całą zawartość węzła, do którego jest dodawany //
 }
 
-function Worker(id, name, salary, office) {
-    this.id = id;
+function Worker(name, salary, office) {
     this.name = name;
     this.salary = salary;
     this.office = office;
 }
 
 function addWorker() {
-    var id = document.getElementById("input-id").value;
+    var lastId = workers.length;
     var name = document.getElementById("input-name").value;
     var salary = document.getElementById("input-salary").value;
     var office = document.getElementById("input-office").value;
@@ -111,17 +110,13 @@ function addWorker() {
         document.getElementById("office-error").innerHTML = "Available offices are GD, GL or KO!";
         return;
     }
-    workers.push(new Worker(id, name, salary, office));
+    workers.push(new Worker(++lastId, name, salary, office));
     addWorkerstoOffices();
     addOfficesToCompany();
     displayWorkersTable();
 }
 
 addBtn.addEventListener("click", addWorker);
-
-var availableOffices = workers.map(function(worker) {
-    return worker.office;
-});
 
 addWorkerstoOffices();
 addOfficesToCompany();
