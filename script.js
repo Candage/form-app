@@ -100,6 +100,7 @@ function Worker(name, salary, office) {
 
 function addWorker() {
     var lastId = workers.length;
+    var nextId = ++lastId;
     var name = document.getElementById("input-name").value;
     var salary = document.getElementById("input-salary").value;
     var office = document.getElementById("input-office").value;
@@ -110,7 +111,8 @@ function addWorker() {
         document.getElementById("office-error").innerHTML = "Available offices are GD, GL or KO!";
         return;
     }
-    workers.push(new Worker(++lastId, name, salary, office));
+    workers.push(new Worker(nextId, name, salary, office));
+    console.log(workers);
     addWorkerstoOffices();
     addOfficesToCompany();
     displayWorkersTable();
