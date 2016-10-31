@@ -26,7 +26,7 @@ var workers = [
 ];
 
 var table = document.getElementById("workers-table-body"),
-    addBtn = document.getElementById("add-btn");
+    addBtn = document.getElementById("add-Btn");
 var company = {};
 
 function mapWorkerstoOffices(office) {
@@ -92,23 +92,20 @@ function displayWorkersTable() {
     table.innerHTML = companyWorkersTable; // zawsze nadpisuje całą zawartość węzła, do którego jest dodawany //
 }
 
-
-function newWorker(id, name, salary, office) {
+function Worker(id, name, salary, office) {
     this.id = id;
     this.name = name;
     this.salary = salary;
     this. office = office;
 }
 
-var users = [];
-
 function addWorker() {
-    var id = getElementById("input-id").value;
-    var name = getElementById("input-name").value;
-    var salary = getElementById("input-salary").value;
-    var office = getElementById("input-office").value;
-    users.push(newWorker(id, name, salary, office));
-    displayWorkersTable()
+    var id = document.getElementById("input-id").value;
+    var name = document.getElementById("input-name").value;
+    var salary = document.getElementById("input-salary").value;
+    var office = document.getElementById("input-office").value;
+    workers.push(new Worker(id, name, salary, office));
+    displayWorkersTable();
 }
 
 addBtn.addEventListener("click", addWorker);
