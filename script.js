@@ -26,7 +26,7 @@ var workers = [
 ];
 
 var table = document.getElementById("workers-table-body"),
-    addBtn = document.getElementById("add-Btn");
+    addBtn = document.getElementById("add-btn");
 var company = {};
 
 function mapWorkerstoOffices(office) {
