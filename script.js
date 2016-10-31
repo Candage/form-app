@@ -100,10 +100,17 @@ function Worker(id, name, salary, office) {
 }
 
 function addWorker() {
-    var id = parseFloat(document.getElementById("input-id").value);
+    var id = document.getElementById("input-id").value;
     var name = document.getElementById("input-name").value;
-    var salary = parseFloat(document.getElementById("input-salary").value);
+    var salary = document.getElementById("input-salary").value;
     var office = document.getElementById("input-office").value;
+    var availableOffices = workers.map(function(worker) {
+        return worker.office;
+    });
+    if (availableOffices.indexOf(office) === -1){
+        document.getElementById("office-error").innerHTML = "Available offices are GD, GL or KO!";
+        return;
+    }
     workers.push(new Worker(id, name, salary, office));
     addWorkerstoOffices();
     addOfficesToCompany();
@@ -111,6 +118,10 @@ function addWorker() {
 }
 
 addBtn.addEventListener("click", addWorker);
+
+var availableOffices = workers.map(function(worker) {
+    return worker.office;
+});
 
 addWorkerstoOffices();
 addOfficesToCompany();
