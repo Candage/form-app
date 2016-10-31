@@ -26,7 +26,10 @@ var workers = [
 ];
 
 var table = document.getElementById("workers-table-body"),
-    addBtn = document.getElementById("add-btn");
+    addBtn = document.getElementById("add-btn"),
+    searchWorker = document.getElementById("input-search-worker"),
+    searchBtn = document.getElementById("search-btn");
+    resultOfSearch = document.getElementById("result-of-search");
 var company = {};
 
 function mapWorkerstoOffices(office) {
@@ -121,6 +124,23 @@ function addWorker() {
 
 addBtn.addEventListener("click", addWorker);
 
+function filterWorkers(name) {
+    return function(worker) {
+        return worker.name.indexOf(name) !== -1;
+    }
+}
+
+var filteredWorkers = workers.filter(filterWorkers);
+
+searchBtn.addEventListener("click", filteredWorkers);
+
+function displaySearchedWorkers() {
+    resultOfSearch.innerHTML = filteredWorkers;
+}
+
+
 addWorkerstoOffices();
 addOfficesToCompany();
 displayWorkersTable();
+displaySearchedWorkers();
+
