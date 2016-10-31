@@ -100,9 +100,9 @@ function Worker(id, name, salary, office) {
 }
 
 function addWorker() {
-    var id = document.getElementById("input-id").value;
+    var id = parseFloat(document.getElementById("input-id").value);
     var name = document.getElementById("input-name").value;
-    var salary = document.getElementById("input-salary").value;
+    var salary = parseFloat(document.getElementById("input-salary").value);
     var office = document.getElementById("input-office").value;
     workers.push(new Worker(id, name, salary, office));
     addWorkerstoOffices();
@@ -111,7 +111,6 @@ function addWorker() {
 }
 
 addBtn.addEventListener("click", addWorker);
-
 
 addWorkerstoOffices();
 addOfficesToCompany();
