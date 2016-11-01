@@ -89,7 +89,7 @@ function displayWorkersTable() {
             companyWorkersTable += '<tr><td>' + company[office].workers[i].id + '</td><td>'
                 + company[office].workers[i].name + '</td><td>'
                 + company[office].workers[i].salary + '</td><td>'
-                + office + '</td><td>' + '<span class="remove-worker" id="' + i + '">X</span>' + '</td></tr>';
+                + office + '</td><td>' + '<span class="glyphicon glyphicon-trash remove-worker" aria-hidden="true" id="' + i + '"></span>' + '</td></tr>';
         }
     }
     table.innerHTML = companyWorkersTable; // zawsze nadpisuje całą zawartość węzła, do którego jest dodawany //
@@ -144,7 +144,7 @@ function removeWorker() {
     addWorkerstoOffices();
     addOfficesToCompany();
     displayWorkersTable();
-    return false;
+
 }
 
 addBtn.addEventListener("click", addWorker);
