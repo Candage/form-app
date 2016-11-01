@@ -89,10 +89,14 @@ function displayWorkersTable() {
             companyWorkersTable += '<tr><td>' + company[office].workers[i].id + '</td><td>'
                 + company[office].workers[i].name + '</td><td>'
                 + company[office].workers[i].salary + '</td><td>'
-                + office + '</td></tr>';
+                + office + '</td><td>' + '<span class="remove-worker" id="' + i + '">X</span>' + '</td></tr>';
         }
     }
     table.innerHTML = companyWorkersTable; // zawsze nadpisuje całą zawartość węzła, do którego jest dodawany //
+    var spans = document.getElementsByClassName("remove-worker");
+    for (var j = 0; j < spans.length; j++) {
+        spans[j].addEventListener('click', removeWorker)
+    }
 }
 
 function Worker(id, name, salary, office) {
@@ -132,6 +136,15 @@ function searchWorkers() {
     addWorkerstoOffices();
     addOfficesToCompany();
     displayWorkersTable();
+}
+
+function removeWorker() {
+    var id = parseFloat(this.getAttribute('id'));
+    workers.splice(id,1);
+    addWorkerstoOffices();
+    addOfficesToCompany();
+    displayWorkersTable();
+    return false;
 }
 
 addBtn.addEventListener("click", addWorker);
