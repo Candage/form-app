@@ -89,7 +89,7 @@ function displayWorkersTable() {
             companyWorkersTable += '<tr><td>' + company[office].workers[i].id + '</td><td>'
                 + company[office].workers[i].name + '</td><td>'
                 + company[office].workers[i].salary + '</td><td>'
-                + office + '</td><td>' + '<span class="glyphicon glyphicon-trash remove-worker" aria-hidden="true" id="' + i + '"></span>' + '</td></tr>';
+                + office + '</td><td>' + '<span class="glyphicon glyphicon-trash remove-worker" aria-hidden="true" id="' + i + '"></span></td></tr>';
         }
     }
     table.innerHTML = companyWorkersTable; // zawsze nadpisuje całą zawartość węzła, do którego jest dodawany //
@@ -106,7 +106,9 @@ function Worker(id, name, salary, office) {
     this.office = office;
 }
 
-function addWorker() {
+function addWorker(event) {
+    event.preventDefault();
+    console.log(event);
     var lastId = workers.length;
     var nextId = ++lastId;
     var name = document.getElementById("input-name").value;
@@ -147,7 +149,7 @@ function removeWorker() {
 
 }
 
-addBtn.addEventListener("click", addWorker);
+addBtn.addEventListener("click", addWorker(event));
 searchBtn.addEventListener("click", searchWorkers);
 
 addWorkerstoOffices();
