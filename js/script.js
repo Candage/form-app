@@ -177,4 +177,4 @@ function addSalarySumAndAvgSalary() {
     salary.innerHTML = companySumAndAvg;
 }
 
-addSalarySumAndAvgSalary();
+addSalarySumAndAvgSalary()
