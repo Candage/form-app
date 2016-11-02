@@ -4,7 +4,8 @@
 var offices = [
     { id: "GD", name: "Gdańsk", headquarter: true },
     { id: "GL", name: "Gliwice" },
-    { id: "KO", name: "Koszalin" }
+    { id: "KO", name: "Koszalin" },
+    { id: "SOS", name: "Sosnowiec" }
 ];
 
 var workers = [
@@ -22,7 +23,8 @@ var workers = [
     { id: 12, name: "Krzysztof",  type: "M", office: "KO", salary: 290 },
     { id: 13, name: "Marcin",     type: "P", office: "GD", salary: 280 },
     { id: 14, name: "Agata",      type: "P", office: "GD", salary: 230 },
-    { id: 15, name: "Magda",      type: "P", office: "KO", salary: 220 }
+    { id: 15, name: "Magda",      type: "P", office: "KO", salary: 220 },
+    { id: 16, name: "Alicja",     type: "P", office: "SOS", salary: 500 }
 ];
 
 var table = document.getElementById("workers-table-body"),
