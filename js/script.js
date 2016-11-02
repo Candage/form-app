@@ -36,8 +36,8 @@ var table = document.getElementById("workers-table-body"),
     newName = document.getElementById("input-name"),
     inputSalary = document.getElementById("input-salary"),
     inputOffice = document.getElementById("input-office"),
-    availableOffices = workers.map(function(worker) {
-        return worker.office;
+    availableOffices = offices.map(function(office) {
+        return office.id;
          });
 var company = {};
 
