@@ -28,8 +28,9 @@ var workers = [
 var table = document.getElementById("workers-table-body"),
     addBtn = document.getElementById("add-btn"),
     searchWorker = document.getElementById("input-search-worker"),
-    searchBtn = document.getElementById("search-btn");
-    searchError = document.getElementById("search-error");
+    searchBtn = document.getElementById("search-btn"),
+    searchError = document.getElementById("search-error"),
+    salary = document.getElementById("sum-and-average-salary");
 var company = {};
 
 function mapWorkerstoOffices(office) {
@@ -158,15 +159,21 @@ function sumSalaryPerOffice(office){
     return salarySum;
 }
 
-console.log(sumSalaryPerOffice(company["Gdańsk"]));
+sumSalaryPerOffice(company["Gdańsk"]);
 
 function calculateAverageWorkersSalary(office) {
     return sumSalaryPerOffice(office) / office.workers.length;
 }
 
-console.log(calculateAverageWorkersSalary(company["Gdańsk"]));
-
-// calculateAverageWorkersSalary(company["Gdańsk"]);
+calculateAverageWorkersSalary(company["Gdańsk"]);
 
 
+function addSalarySumAndAvgSalary() {
+    for (var office of company) {
+        companySumAndAvg += '<row><div class="col-sm-4"><p>' + 'Average salary for' + office.name + 'is' + '<span>' + calculateAverageWorkersSalary(company["office"]) + '</span>' + '</p>'
+            + '<p>' + 'Sum of salaries for' + office.name + 'is' + '<span>' + sumSalaryPerOffice(company["office"]) + '</span></p></div></row>';
+    }
+    salary.innerHTML = companySumAndAvg;
+}
 
+addSalarySumAndAvgSalary();
