@@ -161,14 +161,9 @@ function sumSalaryPerOffice(office){
     return salarySum;
 }
 
-sumSalaryPerOffice(company["Gdańsk"]);
-
 function calculateAverageWorkersSalary(office) {
     return sumSalaryPerOffice(office) / office.workers.length;
 }
-
-calculateAverageWorkersSalary(company["Gdańsk"]);
-
 
 function addSalarySumAndAvgSalary() {
     companySumAndAvg = '';
@@ -183,7 +178,7 @@ function addSalarySumAndAvgSalary() {
 addSalarySumAndAvgSalary();
 
 function addTooltipsForInput() {
-    inputOffice.setAttribute('title', 'Dostępne biura to: ' + avaiableOffices.join(','));
+    inputOffice.setAttribute('title', 'Dostępne biura to: ' + availableOffices.join(','));
 }
 
-addTooltipsForInput();
+console.log(addTooltipsForInput());
