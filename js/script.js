@@ -146,6 +146,10 @@ addBtn.addEventListener("click", function(event) {
 });
 searchBtn.addEventListener("click", searchWorkers);
 
+addWorkerstoOffices();
+addOfficesToCompany();
+displayWorkersTable();
+
 function sumSalaryPerOffice(office){
     var salarySum = 0;
     for (var i = 0, len = office.workers.length; i < len; i++) {
@@ -154,21 +158,16 @@ function sumSalaryPerOffice(office){
     return salarySum;
 }
 
-
+console.log(sumSalaryPerOffice(company["Gdańsk"]));
 
 function calculateAverageWorkersSalary(office) {
-    var salarySum = 0;
-    for (var i = 0, len = company[office].workers.length; i < len; i++) {
-        salarySum += company[office].workers[i].salary;
-    }
-    return salarySum / len;
+    var len = office.workers.length;
+    return sumSalaryPerOffice(office) / len;
 }
 
-calculateAverageWorkersSalary(company["Gdańsk"]);
+console.log(calculateAverageWorkersSalary(company["Gdańsk"]));
 
+// calculateAverageWorkersSalary(company["Gdańsk"]);
 
-addWorkerstoOffices();
-addOfficesToCompany();
-displayWorkersTable();
 
 
