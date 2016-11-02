@@ -32,7 +32,13 @@ var table = document.getElementById("workers-table-body"),
     searchWorker = document.getElementById("input-search-worker"),
     searchBtn = document.getElementById("search-btn"),
     searchError = document.getElementById("search-error"),
-    salary = document.getElementById("sum-and-average-salary");
+    salary = document.getElementById("sum-and-average-salary"),
+    newName = document.getElementById("input-name"),
+    inputSalary = document.getElementById("input-salary"),
+    inputOffice = document.getElementById("input-office"),
+    availableOffices = workers.map(function(worker) {
+        return worker.office;
+         });
 var company = {};
 
 function mapWorkerstoOffices(office) {
@@ -131,17 +137,11 @@ addBtn.addEventListener("click", function(event) {
     console.log(event);
     var lastId = workers.length;
     var nextId = ++lastId;
-    var name = document.getElementById("input-name").value;
-    var salary = document.getElementById("input-salary").value;
-    var office = document.getElementById("input-office").value;
-    var availableOffices = workers.map(function(worker) {
-        return worker.office;
-    });
     if (availableOffices.indexOf(office) === -1){
         document.getElementById("office-error").innerHTML = "Available offices are GD, GL or KO!";
         return;
     }
-    workers.push(new Worker(nextId, name, salary, office));
+    workers.push(new Worker(nextId, newName.value, inputSalary.value, inputOffice.value));
     console.log(workers);
     addWorkerstoOffices();
     addOfficesToCompany();
@@ -181,3 +181,9 @@ function addSalarySumAndAvgSalary() {
 }
 
 addSalarySumAndAvgSalary();
+
+function addTooltipsForInput() {
+    inputOffice.setAttribute('title', 'Dostępne biura to: ' + avaiableOffices.join(','));
+}
+
+addTooltipsForInput();
