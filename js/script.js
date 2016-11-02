@@ -171,9 +171,9 @@ calculateAverageWorkersSalary(company["Gdańsk"]);
 function addSalarySumAndAvgSalary() {
     companySumAndAvg = '';
     for (var office in company) {
-        companySumAndAvg += '<row><div class="panel panel-primary col-sm-4"><div class="panel-heading">' + company[office].name +'</div>'
+        companySumAndAvg += '<row><div class="col-sm-4"><div class="panel panel-primary"><div class="panel-heading">' + company[office].name +'</div>'
             + '<div class="panel-body">' + '<p>' + 'Average salary for ' + company[office].name + ' is ' + '<span>' + Math.round(calculateAverageWorkersSalary(company[office])) + '</span>' + '</p>'
-            + '<p>' + 'Sum of salaries for ' + company[office].name + ' is ' + '<span>' + sumSalaryPerOffice(company[office]) + '</span></p></div></div></row>';
+            + '<p>' + 'Sum of salaries for ' + company[office].name + ' is ' + '<span>' + sumSalaryPerOffice(company[office]) + '</span></p></div></div></div></row>';
     }
     salary.innerHTML = companySumAndAvg;
 }
