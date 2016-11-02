@@ -106,27 +106,6 @@ function Worker(id, name, salary, office) {
     this.office = office;
 }
 
-function addWorker(event) {
-    event.preventDefault();
-    console.log(event);
-    var lastId = workers.length;
-    var nextId = ++lastId;
-    var name = document.getElementById("input-name").value;
-    var salary = document.getElementById("input-salary").value;
-    var office = document.getElementById("input-office").value;
-    var availableOffices = workers.map(function(worker) {
-        return worker.office;
-    });
-    if (availableOffices.indexOf(office) === -1){
-        document.getElementById("office-error").innerHTML = "Available offices are GD, GL or KO!";
-        return;
-    }
-    workers.push(new Worker(nextId, name, salary, office));
-    console.log(workers);
-    addWorkerstoOffices();
-    addOfficesToCompany();
-    displayWorkersTable();
-}
 
 function searchWorkers() {
     workers = workers.filter(function(worker) {
@@ -149,7 +128,27 @@ function removeWorker() {
 
 }
 
-addBtn.addEventListener("click", addWorker(event));
+addBtn.addEventListener("click", function(event) {
+    event.preventDefault();
+    console.log(event);
+    var lastId = workers.length;
+    var nextId = ++lastId;
+    var name = document.getElementById("input-name").value;
+    var salary = document.getElementById("input-salary").value;
+    var office = document.getElementById("input-office").value;
+    var availableOffices = workers.map(function(worker) {
+        return worker.office;
+    });
+    if (availableOffices.indexOf(office) === -1){
+        document.getElementById("office-error").innerHTML = "Available offices are GD, GL or KO!";
+        return;
+    }
+    workers.push(new Worker(nextId, name, salary, office));
+    console.log(workers);
+    addWorkerstoOffices();
+    addOfficesToCompany();
+    displayWorkersTable();
+});
 searchBtn.addEventListener("click", searchWorkers);
 
 addWorkerstoOffices();
