@@ -53,13 +53,7 @@ function addOfficesToCompany() {
     }
 }
 
-function calculateAverageWorkersSalary(office) {
-    var salarySum = 0;
-    for (var i = 0, len = office.workers.length; i < len; i++) {
-        salarySum += office.workers[i].salary;
-    }
-    return salarySum / len;
-}
+
 
 function calculateAverageGlobalSalary() {
     var salarySum = 0;
@@ -81,6 +75,7 @@ function showHighestSalary(office) {
     var sortedWorkers = office.workers.sort(compareSalary);
     return "The best paid worker is " + sortedWorkers[0].name + " and his salary is " + sortedWorkers[0].salary;
 }
+
 
 function displayWorkersTable() {
     var companyWorkersTable = "";
@@ -150,6 +145,27 @@ addBtn.addEventListener("click", function(event) {
     displayWorkersTable();
 });
 searchBtn.addEventListener("click", searchWorkers);
+
+function sumSalaryPerOffice(office){
+    var salarySum = 0;
+    for (var i = 0, len = office.workers.length; i < len; i++) {
+        salarySum += office.workers[i].salary;
+    }
+    return salarySum;
+}
+
+
+
+function calculateAverageWorkersSalary(office) {
+    var salarySum = 0;
+    for (var i = 0, len = company[office].workers.length; i < len; i++) {
+        salarySum += company[office].workers[i].salary;
+    }
+    return salarySum / len;
+}
+
+calculateAverageWorkersSalary(company["Gdańsk"]);
+
 
 addWorkerstoOffices();
 addOfficesToCompany();
