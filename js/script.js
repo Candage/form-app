@@ -161,8 +161,7 @@ function sumSalaryPerOffice(office){
 console.log(sumSalaryPerOffice(company["Gdańsk"]));
 
 function calculateAverageWorkersSalary(office) {
-    var len = office.workers.length;
-    return sumSalaryPerOffice(office) / len;
+    return sumSalaryPerOffice(office) / office.workers.length;
 }
 
 console.log(calculateAverageWorkersSalary(company["Gdańsk"]));
