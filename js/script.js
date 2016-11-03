@@ -1,31 +1,8 @@
 /**
  * Created by Agnieszka on 2016-10-30.
  */
-var offices = [
-    { id: "GD", name: "Gdańsk", headquarter: true },
-    { id: "GL", name: "Gliwice" },
-    { id: "KO", name: "Koszalin" },
-    { id: "SOS", name: "Sosnowiec" }
-];
-
-var workers = [
-    { id: 1,  name: "Bartek",     type: "P", office: "GD", salary: 300 },
-    { id: 2,  name: "Wojtek",     type: "P", office: "GD", salary: 210 },
-    { id: 3,  name: "Piotr",      type: "M", office: "GL", salary: 250 },
-    { id: 4,  name: "Damian",     type: "P", office: "KO", salary: 290 },
-    { id: 5,  name: "Jan",        type: "P", office: "GL", salary: 210 },
-    { id: 6,  name: "Mateusz",    type: "P", office: "GD", salary: 290 },
-    { id: 7,  name: "Weronika",   type: "M", office: "KO", salary: 240 },
-    { id: 8,  name: "Gabriela",   type: "M", office: "GD", salary: 290 },
-    { id: 9,  name: "Alina",      type: "M", office: "KO", salary: 290 },
-    { id: 10, name: "Aleksander", type: "P", office: "GL", salary: 260 },
-    { id: 11, name: "Tomek",      type: "P", office: "GD", salary: 200 },
-    { id: 12, name: "Krzysztof",  type: "M", office: "KO", salary: 290 },
-    { id: 13, name: "Marcin",     type: "P", office: "GD", salary: 280 },
-    { id: 14, name: "Agata",      type: "P", office: "GD", salary: 230 },
-    { id: 15, name: "Magda",      type: "P", office: "KO", salary: 220 },
-    { id: 16, name: "Alicja",     type: "P", office: "SOS", salary: 500 }
-];
+var offices = getOffices() || mockOffices;
+var workers = getWorkers() || mockWorkers;
 
 var table = document.getElementById("workers-table-body"),
     addBtn = document.getElementById("add-btn"),
@@ -38,8 +15,23 @@ var table = document.getElementById("workers-table-body"),
     inputOffice = document.getElementById("input-office"),
     availableOffices = offices.map(function(office) {
         return office.id;
-         });
+    });
 var company = {};
+
+function addWorkersAndOfficesToLocalStorage() {
+    window.localStorage.setItem("workers", JSON.stringify(workers));
+    window.localStorage.setItem("offices", JSON.stringify(offices));
+}
+
+addWorkersAndOfficesToLocalStorage();
+
+function getOffices() {
+    return JSON.parse(window.localStorage.getItem("offices"));
+}
+
+function getWorkers() {
+    return JSON.parse(window.localStorage.getItem("workers"));
+}
 
 function mapWorkerstoOffices(office) {
     return {
@@ -62,8 +54,6 @@ function addOfficesToCompany() {
     }
 }
 
-
-
 function calculateAverageGlobalSalary() {
     var salarySum = 0;
     var workersLength = 0;
@@ -85,7 +75,6 @@ function showHighestSalary(office) {
     return "The best paid worker is " + sortedWorkers[0].name + " and his salary is " + sortedWorkers[0].salary;
 }
 
-
 function displayWorkersTable() {
     var companyWorkersTable = "";
     for (var office in company) {
@@ -93,13 +82,13 @@ function displayWorkersTable() {
             companyWorkersTable += '<tr><td>' + company[office].workers[i].id + '</td><td>'
                 + company[office].workers[i].name + '</td><td>'
                 + company[office].workers[i].salary + '</td><td>'
-                + office + '</td><td>' + '<span class="glyphicon glyphicon-trash remove-worker" aria-hidden="true" id="' + i + '"></span></td></tr>';
+                + office + '</td><td>' + '<span class="glyphicon glyphicon-trash remove-worker" aria-hidden="true" id="' + company[office].workers[i].id + '"></span></td></tr>';
         }
     }
     table.innerHTML = companyWorkersTable; // zawsze nadpisuje całą zawartość węzła, do którego jest dodawany //
-    var spans = document.getElementsByClassName("remove-worker");
-    for (var j = 0; j < spans.length; j++) {
-        spans[j].addEventListener('click', removeWorker)
+    var removeButtons = document.getElementsByClassName("remove-worker");
+    for (var j = 0; j < removeButtons.length; j++) {
+        removeButtons[j].addEventListener('click', removeWorker)
     }
 }
 
@@ -109,7 +98,6 @@ function Worker(id, name, salary, office) {
     this.salary = salary;
     this.office = office;
 }
-
 
 function searchWorkers() {
     workers = workers.filter(function(worker) {
@@ -125,24 +113,29 @@ function searchWorkers() {
 
 function removeWorker() {
     var id = parseFloat(this.getAttribute('id'));
-    workers.splice(id,1);
+    workers = workers.filter(function(worker) {
+        return !(worker.id === id);
+    });
+    window.localStorage.setItem("workers",JSON.stringify(workers));
     addWorkerstoOffices();
     addOfficesToCompany();
     displayWorkersTable();
-
 }
 
 addBtn.addEventListener("click", function(event) {
     event.preventDefault();
-    console.log(event);
-    var lastId = workers.length;
-    var nextId = ++lastId;
-    if (availableOffices.indexOf(office) === -1){
+    var lastIds = workers.map(function(worker) {
+        return worker.id;
+    }).sort(function(prev, next) {
+        return next - prev;
+    });
+    var nextId = ++lastIds[0];
+    if (availableOffices.indexOf(inputOffice.value) === -1){
         document.getElementById("office-error").innerHTML = "Available offices are GD, GL or KO!";
         return;
     }
-    workers.push(new Worker(nextId, newName.value, inputSalary.value, inputOffice.value));
-    console.log(workers);
+    workers.push(new Worker(nextId, newName.value, parseFloat(inputSalary.value), inputOffice.value));
+    window.localStorage.setItem("workers",JSON.stringify(workers));
     addWorkerstoOffices();
     addOfficesToCompany();
     displayWorkersTable();
@@ -153,7 +146,7 @@ addWorkerstoOffices();
 addOfficesToCompany();
 displayWorkersTable();
 
-function sumSalaryPerOffice(office){
+function sumSalaryPerOffice(office) {
     var salarySum = 0;
     for (var i = 0, len = office.workers.length; i < len; i++) {
         salarySum += office.workers[i].salary;
@@ -169,8 +162,9 @@ function addSalarySumAndAvgSalary() {
     companySumAndAvg = '';
     for (var office in company) {
         companySumAndAvg += '<row><div class="col-sm-4"><div class="panel panel-primary"><div class="panel-heading">' + company[office].name +'</div>'
-            + '<div class="panel-body">' + '<p>' + 'Average salary for ' + company[office].name + ' is ' + '<span>' + Math.round(calculateAverageWorkersSalary(company[office])) + '</span>' + '</p>'
-            + '<p>' + 'Sum of salaries for ' + company[office].name + ' is ' + '<span>' + sumSalaryPerOffice(company[office]) + '</span></p></div></div></div></row>';
+            + '<div class="panel-body"><p>Average salary for ' + company[office].name + ' is <span>' + Math.round(calculateAverageWorkersSalary(company[office]))
+            + '</span></p><p>Sum of salaries for ' + company[office].name + ' is <span>' + sumSalaryPerOffice(company[office])
+            + '</span></p></div></div></div></row>';
     }
     salary.innerHTML = companySumAndAvg;
 }
@@ -181,4 +175,4 @@ function addTooltipsForInput() {
     inputOffice.setAttribute('title', 'Dostępne biura to: ' + availableOffices.join(','));
 }
 
-console.log(addTooltipsForInput());
+
