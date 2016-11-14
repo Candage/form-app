@@ -175,4 +175,3 @@ function addTooltipsForInput() {
     inputOffice.setAttribute('title', 'Dostępne biura to: ' + availableOffices.join(','));
 }
 
-
